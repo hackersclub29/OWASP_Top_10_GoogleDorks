@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>200 High-Value Google Dorks for OWASP Top 10</title>
+  <style>
+    /* Dark hacking-themed CSS */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0d0d0d;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #00ff00;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    h2 {
+      font-size: 1.8rem;
+      border-bottom: 1px solid #00aa00;
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+    h3 {
+      font-size: 1.4rem;
+      margin-top: 30px;
+      color: #00cc00;
+    }
+    p.description {
+      margin: 10px 0;
+      font-size: 1rem;
+      color: #66ff66;
+    }
+    pre {
+      background-color: #111;
+      padding: 15px;
+      overflow-x: auto;
+      border-left: 4px solid #00ff00;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    a {
+      color: #00ff00;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+      border-top: 2px solid #00ff00;
+    }
+    .method-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .method-list li::before {
+      content: "> ";
+      color: #00ff00;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>200 High-Value Google Dorks for OWASP Top 10</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Summary</h2>
+      <p>This comprehensive list provides 200 high‑value Google Dorks tailored to uncover the core OWASP Top 10 web vulnerabilities. We group them into ten categories—each aligned with an OWASP risk—offering twenty dorks per category. You’ll also find a concise methodology for leveraging these queries effectively. All dorks are drawn from established sources like the Google Hacking Database (GHDB), Box Piper, and OWASP’s Web Security Testing Guide.</p>
+    </section>
+    <section>
+      <h2>Methodology</h2>
+      <ol class="method-list">
+        <li><strong>Use the GHDB</strong><br>Leverage the Google Hacking Database for categorized query templates.</li>
+        <li><strong>Follow OWASP Recon Steps</strong><br>Apply WSTG-INFO-01 to guide search‑engine discovery.</li>
+        <li><strong>Combine Operators</strong><br>Mix <code>site:</code>, <code>inurl:</code>, <code>intitle:</code>, <code>filetype:</code>, and negative filters.</li>
+        <li><strong>Automate Enumeration</strong><br>Use Python or shell scripts to iterate and parse results.</li>
+        <li><strong>Maintain Ethics</strong><br>Only test against authorized targets.</li>
+      </ol>
+    </section>
+    <hr>
+    <section>
+      <h2>Google Dork Categories & Queries</h2>
+      <h3>1. SQL Injection (OWASP A1)</h3>
+      <p class="description">Error‑based, union‑based, and blind injection patterns.</p>
+      <pre><code>1.  inurl:&quot;.php?id=&quot; intext:&quot;Warning: mysql_fetch&quot;
+2.  inurl:&quot;.asp?Id=&quot; intext:&quot;Microsoft OLE DB Provider for SQL Server&quot;
+3.  inurl:&quot;.jsp?userId=&quot; intext:&quot;java.sql.SQLException&quot;
+4.  inurl:&quot;/products/item.php&quot; intitle:&quot;SQL error&quot;
+5.  inurl:&quot;/search.asp&quot; intext:&quot;Syntax error in query&quot;
+6.  inurl:&quot;view.aspx?pid=&quot; intext:&quot;Unclosed quotation mark&quot;
+7.  inurl:&quot;.php?page=&quot; filetype:&quot;sql&quot;
+8.  inurl:&quot;.php?cat=&quot; intitle:&quot;phpMyAdmin&quot;
+9.  inurl:&quot;show.asp?id=&quot; intitle:&quot;invalid query&quot;
+10. filetype:&quot;log&quot; &quot;SELECT * FROM&quot;
+11. inurl:&quot;.php?search=&quot; intext:&quot;Warning: mysql_num_rows(&quot;
+12. intext:&quot;You have an error in your SQL syntax&quot;
+13. inurl:&quot;.php?item=&quot; intext:&quot;mysql_fetch_assoc(&quot;
+14. inurl:&quot;.aspx?id=&quot; intext:&quot;Unclosed quotation&quot;
+15. filetype:&quot;txt&quot; &quot;FROM INFORMATION_SCHEMA&quot;
+16. inurl:&quot;list.php?cat=&quot; intext:&quot;MySQL server version&quot;
+17. inurl:&quot;cmd.php?cmd=&quot; intext:&quot;Warning: system(&quot;
+18. inurl:&quot;report.php?year=&quot; intext:&quot;mysqli_fetch_array&quot;
+19. filetype:&quot;log&quot; &quot;INSERT INTO&quot;
+20. inurl:&quot;filter.php?f=&quot; intext:&quot;ORA-00933: SQL command&quot;
+</code></pre>
+
+      <h3>2. Cross-Site Scripting (XSS) (OWASP A7)</h3>
+      <p class="description">Reflected, stored, and DOM‑based XSS detection patterns.</p>
+      <pre><code>1.  inurl:&quot;?q=&quot; intext:&quot;&lt;script&gt;alert&quot;
+2.  inurl:&quot;msg=&quot; intext:&quot;&lt;script&gt;&gt;&quot;
+3.  inurl:&quot;/search?&quot; intext:&quot;onerror=&quot;
+4.  inurl:&quot;redirect=&quot; intext:&quot;javascript:&quot;
+5.  inurl:&quot;.php?lang=&quot; intitle:&quot;XSS Detected&quot;
+6.  inurl:&quot;comment.php?id=&quot; intext:&quot;document.cookie&quot;
+7.  inurl:&quot;?page=&quot; intext:&quot;&lt;svg/onload=&quot;
+8.  inurl:&quot;/view?item=&quot; intext:&quot;prompt(&quot;
+9.  inurl:&quot;?user=&quot; intext:&quot;&lt;img src=x onerror=&quot;
+10. inurl:&quot;?redirect=&quot; intitle:&quot;Open Redirect&quot;
+11. intext:&quot;&lt;iframe src=&quot;
+12. intext:&quot;innerHTML = '&quot;
+13. inurl:&quot;search&quot; intext:&quot;eval(&quot;
+14. inurl:&quot;f=&quot; intext:&quot;alert(String)&quot;
+15. inurl:&quot;preview=&quot; intext:&quot;document.write(&quot;
+16. inurl:&quot;mod=&quot; intext:&quot;onmouseover=&quot;
+17. filetype:&quot;html&quot; intext:&quot;&lt;marquee&gt;&quot;
+18. inurl:&quot;lang=&quot; intext:&quot;&lt;object data=&quot;
+19. intext:&quot;location.hash&quot;
+20. intext:&quot;location.search&quot;
+</code></pre>
+
+      <h3>3. File Inclusion (LFI/RFI) (OWASP A5)</h3>
+      <p class="description">Local and remote file inclusion vulnerability indicators.</p>
+      <pre><code>1.  inurl:&quot;?file=&quot; intext:&quot;/etc/passwd&quot;
+2.  inurl:&quot;include.php?page=&quot;
+3.  inurl:&quot;?template=&quot; intext:&quot;Warning: include&quot;
+4.  inurl:&quot;?path=&quot; intext:&quot;failed to open stream&quot;
+5.  inurl:&quot;?view=&quot; filetype:&quot;log&quot;
+6.  inurl:&quot;load.php?lang=&quot; intitle:&quot;Fatal error&quot;
+7.  inurl:&quot;?inc=&quot; intext:&quot;include_once(&quot;
+8.  inurl:&quot;?module=&quot; intext:&quot;Remote file include&quot;
+9.  inurl:&quot;?doc=&quot; intext:&quot;Warning: require&quot;
+10. inurl:&quot;?show=&quot; &quot;allow_url_include&quot;
+11. inurl:&quot;?page=../../etc/passwd&quot;
+12. inurl:&quot;?path=..%2F..%2Fetc%2Fpasswd&quot;
+13. inurl:&quot;view.php?pic=../../../../etc/passwd&quot;
+14. inurl:&quot;?loc=&quot; intext:&quot;Warning: memcpy()&quot;
+15. inurl:&quot;load.php?file=http://&quot;
+16. inurl:&quot;secure.php?file=ftp://&quot;
+17. inurl:&quot;?action=../../../../boot.ini&quot;
+18. inurl:&quot;?page=php://input&quot;
+19. inurl:&quot;?_DOCUMENT[include]&quot;
+20. inurl:&quot;?skin=phar://&quot;
+</code></pre>
+
+      <h3>4. Directory Listing & Sensitive Directories (OWASP A6)</h3>
+      <p class="description">Exposed directory indexes and common sensitive folder leaks.</p>
+      <pre><code>1.  intitle:&quot;Index of /admin/&quot;
+2.  intitle:&quot;Index of /backup/&quot;
+3.  intitle:&quot;Index of /private/&quot;
+4.  intitle:&quot;Index of /config/&quot;
+5.  inttitle:&quot;Index of /logs/&quot;
+6.  intitle:&quot;Index of /uploads/&quot;
+7.  inurl:&quot;/phpmyadmin/&quot;
+8.  inurl:&quot;/wp-content/plugins/&quot;
+9.  inurl:&quot;/cgi-bin/&quot;
+10. inurl:&quot;/.git/&quot;
+11. intitle:&quot;Index of /backup-2025/&quot;
+12. intitle:&quot;Index of /old/&quot;
+13. inurl:&quot;/secret/&quot;
+14. inurl:&quot;/hidden/&quot;
+15. inurl:&quot;/config_backup/&quot;
+16. inurl:&quot;/dev/&quot;
+17. inurl:&quot;/staging/&quot;
+18. inurl:&quot;/test/&quot;
+19. inurl:&quot;/.svn/&quot;
+20. inurl:&quot;/.hg/&quot;
+</code></pre>
+
+      <h3>5. Exposed Credentials (OWASP A2)</h3>
+      <p class="description">Publicly leaked passwords, tokens, and key files.</p>
+      <pre><code>1.  filetype:&quot;env&quot; &quot;DB_PASSWORD&quot;
+2.  filetype:&quot;gitignore&quot; &quot;*secret*&quot;
+3.  intext:&quot;AWS_SECRET_ACCESS_KEY&quot;
+4.  filetype:&quot;cfg&quot; &quot;password=&quot;
+5.  filetype:&quot;ini&quot; &quot;apikey=&quot;
+6.  filetype:&quot;log&quot; &quot;password=admin&quot;
+7.  inurl:&quot;.env&quot;
+8.  inurl:&quot;credentials.json&quot;
+9.  filetype:&quot;xml&quot; &quot;&lt;password&gt;&quot;
+10. filetype:&quot;yaml&quot; &quot;token:&quot;
+11. filetype:&quot;pem&quot;
+12. filetype:&quot;key&quot;
+13. filetype:&quot;crt&quot;
+14. intext:&quot;PRIVATE KEY&quot;
+15. intext:&quot;ENCRYPTED PRIVATE KEY&quot;
+16. filetype:&quot;bak&quot; &quot;password&quot;
+17. inurl:&quot;secrets.yml&quot;
+18. intext:&quot;client_secret&quot;
+19. intext:&quot;oauth_token&quot;
+20. filetype:&quot;log&quot; &quot;login failed&quot;
+</code></pre>
+
+      <h3>6. Error Messages & Stack Traces (OWASP A3)</h3>
+      <p class="description">Verbose error disclosures and stack trace leaks.</p>
+      <pre><code>1.  intext:&quot;Stack Trace&quot; &quot;at sun&quot;
+2.  intext:&quot;ZenDesk&quot; &quot;Exception&quot;
+3.  intext:&quot;Fatal error&quot; &quot;on line&quot;
+4.  inurl:&quot;web.config&quot; &quot;&lt;error&gt;&quot;
+5.  intext:&quot;org.apache.catalina&quot;
+6.  intext:&quot;java.lang.NullPointerException&quot;
+7.  intext:&quot;PHP Fatal error&quot;
+8.  inurl:&quot;errors/&quot; &quot;trace&quot;
+9.  intext:&quot;Unhandled Exception&quot;
+10. intext:&quot;Symfony\\Component\\HttpKernel&quot;
+11. intext:&quot;WARNING: apt-get update&quot;
+12. intext:&quot;Python Traceback (most recent call last)&quot;
+13. intext:&quot;TypeError:&quot;
+14. intext:&quot;ReferenceError:&quot;
+15. intext:&quot;RuntimeError:&quot;
+16. intext:&quot;Uncaught TypeError&quot;
+17. intext:&quot;UnhandledPromiseRejectionWarning&quot;
+18. intext:&quot;panic:&quot;
+19. intext:&quot;Traceback (most recent call last)&quot;
+20. intext:&quot;stack traceback&quot;
+</code></pre>
+
+      <h3>7. Admin Panels & Login Pages (OWASP A5)</h3>
+      <p class="description">Unprotected administrative and authentication endpoints.</p>
+      <pre><code>1.  intitle:&quot;Admin Login&quot;
+2.  inurl:&quot;/admin/login.php&quot;
+3.  inurl:&quot;/manager/html&quot;
+4.  inurl:&quot;/admin.php&quot;
+5.  intitle:&quot;Dashboard&quot; &quot;Login&quot;
+6.  inurl:&quot;/user/login&quot;
+7.  intitle:&quot;Control Panel&quot;
+8.  inurl:&quot;/administrator/index.php&quot;
+9.  inurl:&quot;/wp-login.php&quot;
+10. inurl:&quot;/cpanel&quot;
+11. inurl:&quot;/adminpanel/&quot;
+12. inurl:&quot;/login?redirect_to=&quot;
+13. inurl:&quot;/auth/&quot;
+14. filetype:&quot;php&quot; &quot;login_action&quot;
+15. inurl:&quot;/signin&quot;
+16. inurl:&quot;/signup&quot;
+17. inurl:&quot;/reset_password&quot;
+18. inhabit:&quot;/account/&quot;
+19. inurl:&quot;/oauth/&quot;
+20. inurl:&quot;/sso/&quot;
+</code></pre>
+
+      <h3>8. XML External Entities (XXE) (OWASP A4)</h3>
+      <p class="description">XML parsing flaws and entity declarations.</p>
+      <pre><code>1.  filetype:&quot;xml&quot; &quot;&lt;?xml version&quot;
+2.  intext:&quot;&lt;!ENTITY&quot; filetype:&quot;xml&quot;
+3.  inurl:&quot;/api/xml&quot;
+4.  inurl:&quot;.svc&quot; filetype:&quot;wsdl&quot;
+5.  inurl:&quot;/xmlrpc.php&quot;
+6.  intext:&quot;system(\&quot; ls -la \&quot;)&quot;
+7.  intext:&quot;DOCTYPE&quot; filetype:&quot;xml&quot;
+8.  inurl:&quot;/soap&quot; filetype:&quot;xml&quot;
+9.  intext:&quot;&lt;!DOCTYPE&quot; &quot;PUBLIC&quot;
+10. filetype:&quot;xml&quot; &quot;&lt;!ENTITY%20&quot;
+11. intext:&quot;&lt;!ENTITY parameter&quot;
+12. inurl:&quot;DTD&quot;
+13. intext:&quot;!ENTITY % local&quot;
+14. intext:&quot;!ENTITY % remote&quot;
+15. filetype:&quot;xsd&quot;
+16. intext:&quot;<!ELEMENT&quot;
+17. intext:&quot;<!ATTLIST&quot;
+18. intext:&quot;xml-stylesheet&quot;
+19. intext:&quot;xsi&quot;
+20. filetype:&quot;wsdl&quot; &quot;definitions&quot;
+</code></pre>
+
+      <h3>9. Backup & Old Files (OWASP A9)</h3>
+      <p class="description">Exposed archives, old versions, and backup files.</p>
+      <pre><code>1.  filetype:&quot;bak&quot; inurl:&quot;www&quot;
+2.  filetype:&quot;old&quot; inurl:&quot;backup&quot;
+3.  filetype:&quot;zip&quot; inurl:&quot;backup&quot;
+4.  filetype:&quot;tar.gz&quot; inurl:&quot;archive&quot;
+5.  filetype:&quot;sql&quot; inurl:&quot;dump&quot;
+6.  filetype:&quot;7z&quot; inurl:&quot;release&quot;
+7.  inurl:&quot;~$&quot; filetype:&quot;xls&quot;
+8.  filetype:&quot;bkf&quot; inurl:&quot;backup&quot;
+9.  filetype:&quot;rar&quot; inurl:&quot;old&quot;
+10. filetype:&quot;gz&quot; inurl:&quot;version&quot;
+11. inurl:&quot;/backup/2024&quot;
+12. inurl:&quot;/archive/oldsite&quot;
+13. filetype:&quot;tar&quot; inurl:&quot;db&quot;
+14. filetype:&quot;zip&quot; inurl:&quot;site&quot;
+15. filetype:&quot;gz&quot; inurl:&quot;logs&quot;
+16. filetype:&quot;sql.gz&quot;
+17. filetype:&quot;bz2&quot; inurl:&quot;db&quot;
+18. filetype:&quot;bak&quot; inurl:&quot;config&quot;
+19. filetype:&quot;jar&quot;
+20. inurl:&quot;/export/&quot;
+</code></pre>
+
+      <h3>10. Open Redirects & Unvalidated Redirects (OWASP A10)</h3>
+      <p class="description">Redirect parameters exploited for phishing or XSS.</p>
+      <pre><code>1.  inurl:&quot;?url=http&quot;
+2.  inurl:&quot;?next=http&quot;
+3.  inurl:&quot;redirect_url=&quot;
+4.  inurl:&quot;return=https&quot;
+5.  inurl:&quot;goto=http&quot;
+6.  inurl:&quot;continue=http&quot;
+7.  inurl:&quot;callback=&quot; filetype:&quot;php&quot;
+8.  inurl:&quot;dest=&quot; intext:&quot;http&quot;
+9.  inurl:&quot;ref=&quot; filetype:&quot;asp&quot;
+10. inurl:&quot;redirect.aspx&quot;
+11. inurl:&quot;redirect?path=&quot;
+12. inurl:&quot;site_redirect=&quot;
+13. inurl:&quot;return_uri=&quot;
+14. inurl:&quot;nextPage=&quot;
+15. inurl:&quot;to=http&quot;
+16. inurl:&quot;urlCode=&quot;
+17. inurl:&quot;URL_REDIRECT&quot;
+18. inurl:&quot;redirect_from=&quot;
+19. inurl:&quot;redirect_to=&quot;
+20. inurl:&quot;externalUrl=&quot;
+</code></pre>
+
+    </section>
+    <hr>
+    <section>
+      <h2>Next Steps & Tools</h2>
+      <ul>
+        <li>Automate with scripts (e.g., Python + Selenium) to cycle through dorks and filter unique domains.</li>
+        <li>Integrate into recon tools like <strong>GHDB‑Scraper</strong> or <strong>Shodan</strong>.</li>
+        <li>Validate results manually or via scanners (e.g., <strong>Burp Suite</strong>, <strong>OWASP ZAP</strong>).</li>
+        <li>Mitigate exposures by following OWASP WSTG controls and tightening <code>robots.txt</code>, access controls, and error handling.</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 hackersclub29 . All rights reserved.</p>
+  </footer>
+</body>
+</html>
